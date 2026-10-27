@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waqiah & Sholawat Bersama</title>
+<style>
+body {
+  margin: 0; padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f0f7f2; color: #214b38;
+}
+main {
+  max-width: 450px; margin: auto;
+}
+header, section {
+  background: white; padding: 20px;
+  border-radius: 18px; margin-bottom: 16px;
+  box-shadow: 0 3px 12px #0000000c;
+}
+header { text-align: center; background: #176b4d; color: white; }
+h1 { font-size: 24px; }
+h2 { font-size: 19px; }
+.person { display: flex; justify-content: space-between; padding: 12px 0; }
+label { display: flex; gap: 10px; align-items: center; }
+input[type=checkbox] { width: 20px; height: 20px; }
+button {
+  border: 0; border-radius: 12px; padding: 12px 18px;
+  background: #176b4d; color: white; font-size: 16px;
+}
+.counter { display: flex; align-items: center; justify-content: center; gap: 20px; }
+#count { font-size: 42px; font-weight: bold; }
+button.secondary { background: #e3eee7; color: #214b38; }
+small { color: #62776a; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div style="font-size:38px">☪️</div>
+  <h1>Waqiah & Sholawat Bersama</h1>
+  <p>Melangkah bersama dalam kebaikan</p>
+</header>
+
+<section>
+  <h2>🤝 Anggota</h2>
+  <div class="person"><span>🌷 Wulan</span><strong>Anggota 1</strong></div>
+  <div class="person"><span>🌙 Irfan</span><strong>Anggota 2</strong></div>
+</section>
+
+<section>
+  <h2>📖 Checklist Al-Waqiah</h2>
+  <p><small>Centang setelah selesai membaca.</small></p>
+  <label><input id="wulan" type="checkbox"> Wulan sudah membaca</label>
+  <br>
+  <label><input id="irfan" type="checkbox"> Irfan sudah membaca</label>
+</section>
+
+<section style="text-align:center">
+  <h2>🤲 Penghitung Sholawat</h2>
+  <p>Target bersama: 100 kali</p>
+  <div class="counter">
+    <button class="secondary" id="minus">−</button>
+    <span id="count">0</span>
+    <button id="plus">+</button>
+  </div>
+  <p id="remaining">Sisa 100 kali lagi</p>
+  <button class="secondary" id="reset">Ulangi hitungan</button>
+</section>
+
+<p style="text-align:center"><small>Semoga Allah menerima amal kebaikan kita. Aamiin 🤍</small></p>
+</main>
+
+<script>
+const countEl = document.getElementById('count');
+const remainingEl = document.getElementById('remaining');
+let count = Number(localStorage.getItem('sholawatCount') || 0);
+
+function update() {
+  count = Math.max(0, Math.min(100, count));
+  countEl.textContent = count;
+  remainingEl.textContent = count >= 100
+    ? 'Alhamdulillah, target tercapai! 🤍'
+    : 'Sisa ' + (100 - count) + ' kali lagi';
+  localStorage.setItem('sholawatCount', count);
+}
+document.getElementById('plus').onclick = () => { count++; update(); };
+document.getElementById('minus').onclick = () => { count--; update(); };
+document.getElementById('reset').onclick = () => {
+  if (confirm('Ulangi hitungan dari nol?')) { count = 0; update(); }
+};
+['wulan','irfan'].forEach(id => {
+  const el = document.getElementById(id);
+  el.checked = localStorage.getItem(id) === 'true';
+  el.onchange = () => localStorage.setItem(id, el.checked);
+});
+update();
+</script>
+</body>
+</html>
