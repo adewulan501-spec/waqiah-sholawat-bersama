@@ -1,101 +1,46 @@
-
 <!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Waqiah & Sholawat Bersama</title>
-<style>
-body {
-  margin: 0; padding: 20px;
-  font-family: Arial, sans-serif;
-  background: #f0f7f2; color: #214b38;
-}
-main {
-  max-width: 450px; margin: auto;
-}
-header, section {
-  background: white; padding: 20px;
-  border-radius: 18px; margin-bottom: 16px;
-  box-shadow: 0 3px 12px #0000000c;
-}
-header { text-align: center; background: #176b4d; color: white; }
-h1 { font-size: 24px; }
-h2 { font-size: 19px; }
-.person { display: flex; justify-content: space-between; padding: 12px 0; }
-label { display: flex; gap: 10px; align-items: center; }
-input[type=checkbox] { width: 20px; height: 20px; }
-button {
-  border: 0; border-radius: 12px; padding: 12px 18px;
-  background: #176b4d; color: white; font-size: 16px;
-}
-.counter { display: flex; align-items: center; justify-content: center; gap: 20px; }
-#count { font-size: 42px; font-weight: bold; }
-button.secondary { background: #e3eee7; color: #214b38; }
-small { color: #62776a; }
-</style>
-</head>
-<body>
-<main>
-<header>
-  <div style="font-size:38px">☪️</div>
-  <h1>Waqiah & Sholawat Bersama</h1>
-  <p>Melangkah bersama dalam kebaikan</p>
-</header>
-
-<section>
-  <h2>🤝 Anggota</h2>
-  <div class="person"><span>🌷 Wulan</span><strong>Anggota 1</strong></div>
-  <div class="person"><span>🌙 Irfan</span><strong>Anggota 2</strong></div>
-</section>
-
-<section>
-  <h2>📖 Checklist Al-Waqiah</h2>
-  <p><small>Centang setelah selesai membaca.</small></p>
-  <label><input id="wulan" type="checkbox"> Wulan sudah membaca</label>
-  <br>
-  <label><input id="irfan" type="checkbox"> Irfan sudah membaca</label>
-</section>
-
-<section style="text-align:center">
-  <h2>🤲 Penghitung Sholawat</h2>
-  <p>Target bersama: 100 kali</p>
-  <div class="counter">
-    <button class="secondary" id="minus">−</button>
-    <span id="count">0</span>
-    <button id="plus">+</button>
-  </div>
-  <p id="remaining">Sisa 100 kali lagi</p>
-  <button class="secondary" id="reset">Ulangi hitungan</button>
-</section>
-
-<p style="text-align:center"><small>Semoga Allah menerima amal kebaikan kita. Aamiin 🤍</small></p>
-</main>
-
-<script>
-const countEl = document.getElementById('count');
-const remainingEl = document.getElementById('remaining');
-let count = Number(localStorage.getItem('sholawatCount') || 0);
-
-function update() {
-  count = Math.max(0, Math.min(100, count));
-  countEl.textContent = count;
-  remainingEl.textContent = count >= 100
-    ? 'Alhamdulillah, target tercapai! 🤍'
-    : 'Sisa ' + (100 - count) + ' kali lagi';
-  localStorage.setItem('sholawatCount', count);
-}
-document.getElementById('plus').onclick = () => { count++; update(); };
-document.getElementById('minus').onclick = () => { count--; update(); };
-document.getElementById('reset').onclick = () => {
-  if (confirm('Ulangi hitungan dari nol?')) { count = 0; update(); }
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#176b4d"><title>Waqiah & Sholawat Bersama</title>
+<style>*{box-sizing:border-box}body{margin:0;padding:16px;background:#f0f7f2;color:#214b38;font-family:Arial,sans-serif}main{max-width:480px;margin:auto}header,section{background:white;padding:20px;border-radius:18px;margin-bottom:16px;box-shadow:0 3px 12px #0000000c}header{text-align:center;background:#176b4d;color:white}h1{font-size:24px}h2{font-size:19px;margin-top:0}button,input{font:inherit}button{border:0;border-radius:12px;padding:12px 16px;background:#176b4d;color:white;cursor:pointer}button:disabled{opacity:.5}button.secondary{background:#e3eee7;color:#214b38}input[type=email],input[type=password]{width:100%;padding:12px;border:1px solid #c8d9ce;border-radius:10px;margin:7px 0 12px}input[type=checkbox]{width:22px;height:22px;accent-color:#176b4d}.line{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #edf2ee}.counter{display:flex;align-items:center;justify-content:center;gap:22px}.count{font-size:36px;font-weight:bold}.muted,small{color:#62776a}.center{text-align:center}.hidden{display:none}.error{color:#b42318}.pill{background:#e3eee7;border-radius:99px;padding:5px 10px;font-size:12px}.history{font-size:14px;line-height:1.8;overflow-wrap:anywhere}.wide{width:100%}</style></head>
+<body><main><header><div style="font-size:38px">☪️</div><h1>Waqiah & Sholawat Bersama</h1><p>Melangkah bersama dalam kebaikan</p></header>
+<section id="login"><h2>🔐 Masuk</h2><p class="muted">Khusus Wulan dan Irfan. Gunakan email dan kata sandi yang sudah dibuat di Firebase.</p><form id="loginForm"><label>Email<input type="email" id="email" required autocomplete="username"></label><label>Kata sandi<input type="password" id="password" required autocomplete="current-password"></label><button class="wide" type="submit">Masuk</button></form><p id="loginError" class="error" role="alert"></p></section>
+<div id="app" class="hidden"><section><div class="line"><div><strong id="hello">Assalamu'alaikum</strong><p class="muted" id="today"></p></div><button class="secondary" id="logout">Keluar</button></div><small>Data hari ini disimpan bersama dan diperbarui secara langsung.</small></section>
+<section><h2>📖 Checklist Al-Waqiah</h2><p class="muted">Hanya pemilik akun yang dapat mengubah checklist sendiri.</p><div id="waqiahList"></div></section>
+<section><h2>🤲 Penghitung Sholawat</h2><p class="muted center">Target masing-masing: 100 kali per hari</p><div id="sholawatList"></div><p class="center" id="total"></p></section>
+<section><h2>📅 Riwayat 7 Hari</h2><div id="history" class="history">Memuat riwayat...</div></section>
+<section><h2>🔔 Pengingat Harian</h2><p>06.30 • 12.00 • 22.00 WIB</p><small>Pengingat otomatis saat aplikasi ditutup belum aktif. Fitur ini membutuhkan layanan push notification dan konfigurasi tambahan.</small></section></div>
+<p class="center"><small>Semoga Allah menerima amal kebaikan kita. Aamiin 🤍</small></p></main>
+<script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import {getFirestore,doc,onSnapshot,runTransaction,collection,query,where,getDocs} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+// Konfigurasi Firebase Web App
+const firebaseConfig = {
+  apiKey: "AIzaSyCte2QzbQqZsQbpYRoY2SGpJ2N-0H31uE4",
+  authDomain: "waqiah-sholawat-bersama.firebaseapp.com",
+  projectId: "waqiah-sholawat-bersama",
+  storageBucket: "waqiah-sholawat-bersama.firebasestorage.app",
+  messagingSenderId: "937184657614",
+  appId: "1:937184657614:web:fa257c84ebd2e3a0c6d09f",
+  measurementId: "G-LHLZKBPKP1"
 };
-['wulan','irfan'].forEach(id => {
-  const el = document.getElementById(id);
-  el.checked = localStorage.getItem(id) === 'true';
-  el.onchange = () => localStorage.setItem(id, el.checked);
-});
-update();
-</script>
-</body>
-</html>
+const members = {
+ 'YQoT4swLmBVVDcqBxd6mitIBWSs1':{name:'Wulan',icon:'🌷'},
+ 'tQJcbeIR3sRkK15BIUAVMOkGosu1':{name:'Irfan',icon:'🌙'}
+};
+const $=id=>document.getElementById(id);const ready=!Object.values(firebaseConfig).some(v=>v.startsWith('ISI_'));
+if(!ready){$('loginError').textContent='Konfigurasi Firebase belum diisi. Tambahkan firebaseConfig terlebih dahulu sebelum digunakan.';}
+else {
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+let current=null,unsub=null,clock=null,day='';
+const dateKey=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+$('loginForm').onsubmit=async e=>{e.preventDefault();$('loginError').textContent='';try{await signInWithEmailAndPassword(auth,$('email').value.trim(),$('password').value)}catch(e){$('loginError').textContent='Gagal masuk. Periksa email dan kata sandi.'}};
+$('logout').onclick=()=>signOut(auth);
+function watchDay(){if(unsub)unsub();day=dateKey();$('today').textContent='Hari ini: '+day+' (WIB)';unsub=onSnapshot(doc(db,'harian',day),s=>render(s.exists()?s.data():{}),()=>{$('total').textContent='Gagal memuat data. Periksa koneksi dan aturan Firestore.'});loadHistory()}
+async function change(kind,uid,delta){if(uid!==current?.uid)return;const key=kind==='waqiah'?'waqiah':'sholawat';const ref=doc(db,'harian',dateKey());try{await runTransaction(db,async tx=>{const snap=await tx.get(ref),data=snap.exists()?snap.data():{},own=data[uid]||{waqiah:false,sholawat:0};const next={...own};if(key==='waqiah')next.waqiah=Boolean(delta);else next.sholawat=Math.max(0,Math.min(100,(Number(own.sholawat)||0)+delta));tx.set(ref,{[uid]:next},{merge:true})})}catch(e){alert('Gagal menyimpan. Coba lagi saat koneksi stabil.')}}
+function render(data){$('waqiahList').innerHTML='';$('sholawatList').innerHTML='';let sum=0;for(const [uid,m] of Object.entries(members)){const mine=uid===current.uid,record=data[uid]||{},checked=record.waqiah===true,n=Math.max(0,Math.min(100,Number(record.sholawat)||0));sum+=n;const line=document.createElement('div');line.className='line';const label=document.createElement('label');label.style.display='flex';label.style.alignItems='center';label.style.gap='12px';const box=document.createElement('input');box.type='checkbox';box.checked=checked;box.disabled=!mine;box.onchange=()=>change('waqiah',uid,box.checked);label.append(box,document.createTextNode(m.icon+' '+m.name+' '+(checked?'✓ Sudah membaca':'Belum membaca')));line.append(label);$('waqiahList').append(line);
+const wrap=document.createElement('div');wrap.className='center';wrap.style.padding='15px 0';const title=document.createElement('h3');title.textContent=m.icon+' '+m.name;const ctr=document.createElement('div');ctr.className='counter';const minus=document.createElement('button');minus.className='secondary';minus.textContent='−';minus.disabled=!mine||n===0;minus.onclick=()=>change('sholawat',uid,-1);const val=document.createElement('span');val.className='count';val.textContent=n;const plus=document.createElement('button');plus.textContent='+';plus.disabled=!mine||n>=100;plus.onclick=()=>change('sholawat',uid,1);ctr.append(minus,val,plus);const status=document.createElement('p');status.className='muted';status.textContent=n>=100?'Alhamdulillah, target tercapai! 🤍':'Sisa '+(100-n)+' kali';wrap.append(title,ctr,status);$('sholawatList').append(wrap)}$('total').textContent='Total bersama hari ini: '+sum+' sholawat'}
+async function loadHistory(){const key=day;const end=new Date(Date.now()+86400000),start=new Date(Date.now()-8*86400000);const fmt=d=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);try{const q=query(collection(db,'harian'),where('__name__','>=',fmt(start)),where('__name__','<=',fmt(end)));const snap=await getDocs(q);if(day!==key)return;const records=snap.docs.filter(d=>d.id<key).sort((a,b)=>b.id.localeCompare(a.id)).slice(0,7);$('history').innerHTML=records.length?records.map(d=>{const a=d.data();return '<div class="line"><strong>'+escapeHTML(d.id)+'</strong><span>'+Object.entries(members).map(([id,m])=>escapeHTML(m.name)+': '+(a[id]?.waqiah?'✓':'–')+' / '+(Number(a[id]?.sholawat)||0)).join(' · ')+'</span></div>'}).join(''):'Belum ada riwayat hari sebelumnya.'}catch(e){$('history').textContent='Riwayat belum bisa dimuat.'}}
+onAuthStateChanged(auth,user=>{if(unsub){unsub();unsub=null}if(clock){clearInterval(clock);clock=null}current=user&&members[user.uid]?user:null;if(user&&!current){signOut(auth);$('loginError').textContent='Akun ini tidak diizinkan.';return}$('login').classList.toggle('hidden',!!current);$('app').classList.toggle('hidden',!current);if(current){$('hello').textContent='Assalamu’alaikum, '+members[current.uid].name;watchDay();clock=setInterval(()=>{if(dateKey()!==day)watchDay()},15000)}});
+}
+</script></body></html>
